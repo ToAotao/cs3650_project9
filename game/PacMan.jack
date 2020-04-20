@@ -1,0 +1,166 @@
+class PacMan {
+   field Player player; 
+   field int direction; 
+   field int score;
+   field int highScore;
+   field boolean exit;
+   field int xPoint; 
+   field int yPoint; 
+   field int pointCounter;
+
+   constructor PacMan new() {
+      let player = player.new(248,230);
+      let direction = 0;  // initial state is no movement
+      let score = 0;
+      let highScore = 0;
+      let exit = false;
+      let pointCounter = 0;
+      do point(); // generate the first point to the screen
+       return this;
+   }
+   method void dispose() {
+      do player.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+
+   method void movePlayer() {
+        if (direction = 3) { do player.moveLeft(); }
+        if (direction = 4) { do player.moveRight(); }
+        if (direction = 1) { do player.moveUp(); }
+        if (direction = 2) { do player.moveDown(); }
+        if (direction > 0) { let direction = 0; }
+     
+        var boolean boolAlive;
+        var int playerLength; 
+ 
+   }
+   method void drawBorder() {
+      var String livesString;
+      var String scoreString;
+       
+      let livesString = String.new(5);
+      do livesString.setInt(lives); 
+      let scoreString = String.new(10);
+      do Output.moveCursor(0,0); 
+      do scoreString.setInt(score);  
+      do Output.println();
+      do Output.printString("Player!");
+      do Output.println();
+      do Output.printString("Score: ");
+      do Output.printInt(score);
+      do Output.println();
+      do Output.println();
+      do Output.printString("Hi-score: "); 
+      do Output.println(); 
+      do Output.printInt(highScore);
+      do Screen.setColor(true); // set black 
+      do Screen.drawLine(100,0,100,255); // left border
+      do Screen.drawLine(99,0,99,255); // left border 
+      do Screen.drawLine(511,0,511,255);// righ border
+      do Screen.drawLine(510,0,510,255);// righ border 
+      do Screen.drawLine(100,0,511,0);// top border
+      do Screen.drawLine(100,1,511,1);// top border 
+      do Screen.drawLine(100,255,511,255); // bottom border
+      do Screen.drawLine(100,254,511,254); // bottom border 
+      return;
+   }
+   method void run() {
+      var char key; 
+      var int timer;
+      let timer = 0;
+      var boolean exit;
+      let exit = false;
+      do drawBorder(); 
+    
+      while (~exit) {
+         let key = Keyboard.keyPressed();
+         let timer = timer +1;
+         if( (timer / 10) = 1){
+            let score = score +1;
+            do Output.moveCursor(3,7);  
+            do Output.printInt(score);
+            let timer = 0; 
+            
+         }
+         
+         if (key = 81)  { let exit = true; }     // q key
+         if (key = 131) { let direction = 1; }   // up arrow
+         if (key = 133) { let direction = 2; }   // down arrow
+         if (key = 130 ) {let direction = 3; }   // left arrow
+         if (key = 132) { let direction = 4; }   // right arrow
+
+         // waits for the key to be released
+         while (~(key = 0)) {
+            let key = Keyboard.keyPressed();
+            do movePlayer();
+         }
+     return;
+   }
+    
+        
+    method void gameOver(){
+         var char key;
+         do Screen.clearScreen();
+         do Output.moveCursor(11,22);
+         do Output.printString("Game Over");
+        do Output.moveCursor(13,22);
+         do Output.printString("High Score: ");
+         do Output.printInt(highScore);
+         while(~exit){
+            // i would like to exit run();
+             let key = Keyboard.keyPressed();
+             if (key = 81){
+                let exit = true;
+             }
+         }
+        return;
+    }
+  
+   method void point(){
+       let xPoint = 90;
+       let yPoint = 90;
+       do Screen.setColor(true);
+       do Screen.drawCircle(150,150,5);
+       return; 
+   }
+    
+
+      if (pointCounter = 1){
+        let xPoint = 100;
+        let yPoint = 40;
+      }
+      if (pointCounter = 2){
+        let xPoint = 120;
+        let yPoint = 20;
+      }
+      if (pointCounter = 3){
+        let xPoint = 290;
+        let yPoint = 110;
+      }
+      if (pointCounter = 4){
+        let xPoint = 210;
+        let yPoint = 50;
+
+      }
+       if (pointCounter = 5){
+        let xPoint = 40;
+        let yPoint = 200;  
+      }
+       if (pointCounter = 6){
+        let xPoint = 200;
+        let yPoint = 120;  
+      }
+       if (pointCounter = 7){
+        let xPoint = 320;
+        let yPoint = 120;
+        let pointCounter = 0;  
+      }
+
+      do Screen.setColor(true);
+   
+        return;
+    }
+    
+}
